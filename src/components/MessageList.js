@@ -31,7 +31,7 @@ class MessageList extends Component {
         this.setState({ messageText: e.target.value })
     }
 
-    componentWillReceiveProps(nextProps){}
+    //componentWillReceiveProps(nextProps){}
 
     componentDidMount() {
         this.messagesRef.on('child_added', snapshot => {
