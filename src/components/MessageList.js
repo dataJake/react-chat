@@ -6,10 +6,7 @@ class MessageList extends Component {
         super(props);
 
         this.state = {
-            username: '',
-            content: '',
-            sentAt: '',
-            roomId: '',
+            messageText: '',
             messages: []
         };
         this.messagesRef = this.props.firebase.database().ref('messages');
@@ -21,23 +18,20 @@ class MessageList extends Component {
     createMessage(e) {
       e.preventDefault();
       this.messagesRef.push({
-        username: this.state.username,
-        content: this.state.content,
-        sentAt: this.state.sentAt,
-        roomId: this.state.roomId
+        username: 'Jake',
+        content: this.state.messageText,
+        sentAt: 'Now',
+        roomId: 1
       });
-      this.setState({ username: '', content: '', sentAt: '', roomId: '' });
+      this.setState({ messageText: '' });
     }
 
     handleChange(e) {
         e.preventDefault();
-        this.messagesRef.push({
-            username: this.state.username,
-            content: this.state.content,
-            sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
-            roomId: this.props.activeRoom
-        })
+        this.setState({ messageText: e.target.value })
     }
+
+    componentWillReceiveProps(nextProps){}
 
     componentDidMount() {
         this.messagesRef.on('child_added', snapshot => {
@@ -52,17 +46,14 @@ class MessageList extends Component {
 
         const messageForm = (
             <form onSubmit={ this.createMessage }>
-                <input type='text' value={ this.state.content } placeholder='Enter Message' onChange={ this.handleChange }/>
+                <input type='text' value={ this.state.messageText } placeholder='Enter Message' onChange={ this.handleChange }/>
                 <input type='submit' value='Send'/>
             </form>
         );
 
         const messageList = (
             this.state.messages.map((message) => {
-                if(message.roomId === activeRoom) {
-                    return <li key={ message.key }>{ message.content }</li>
-                }
-                return null;
+                return <li key={ message.key }>{ message.content }</li>
             })
         );
 

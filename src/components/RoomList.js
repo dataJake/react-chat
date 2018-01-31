@@ -16,7 +16,7 @@ class RoomList extends Component {
 
     createRoom(e) {
         e.preventDefault();
-        this.roomsRef.push({ title: this.state.title });
+        this.roomsRef.push({ name: this.state.title });
         this.setState({ title: '' });
     }
 
@@ -33,7 +33,7 @@ class RoomList extends Component {
     }
 
     selectRoom(room) {
-        this.props.activeRoom(room);
+        this.props.setActiveRoom(room);
     }
 
     render(){
@@ -45,7 +45,7 @@ class RoomList extends Component {
         )
 
         const roomList = this.state.rooms.map((room) =>
-            <li key={ room.key } onClick={(e) => this.selectRoom(room, e)}>{ room.title }</li>
+            <li key={ room.key } onClick={(e) => this.selectRoom(room, e)}>{ room.name }</li>
         )
 
 
