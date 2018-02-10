@@ -11,7 +11,7 @@ class RoomList extends Component {
 
         this.roomsRef = this.props.firebase.database().ref('rooms');
         this.handleChange = this.handleChange.bind(this);
-        this.createRoom =this.createRoom.bind(this);
+        this.createRoom = this.createRoom.bind(this);
     }
 
     createRoom(e) {
@@ -33,7 +33,7 @@ class RoomList extends Component {
     }
 
     selectRoom(room) {
-        this.props.setActiveRoom(room);
+        this.props.setActiveRoom({ room: room});
     }
 
     render(){

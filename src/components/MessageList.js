@@ -7,11 +7,13 @@ class MessageList extends Component {
 
         this.state = {
             messageText: '',
-            messages: []
+            messages: [],
+            displayedMessages: []
         };
         this.messagesRef = this.props.firebase.database().ref('messages');
         this.handleChange = this.handleChange.bind(this);
         this.createMessage = this.createMessage.bind(this);
+        this.updateDisplayedMessages = this.updateDisplayedMessages.bind(this);
     }
 
 
@@ -31,7 +33,15 @@ class MessageList extends Component {
         this.setState({ messageText: e.target.value })
     }
 
-    //componentWillReceiveProps(nextProps){}
+    updateDisplayedMessages(activeRoom) {
+        const displayed = this.state.messages.filter(activeRoom =>
+            this.state.messages.roomId === activeRoom.key);
+        this.setState({ displayedMessages: displayed});
+    }
+
+    componentWillReceiveProps(nextProps){
+        updateDisplayedMessages(nextProps.ActiveRoom);
+    }
 
     componentDidMount() {
         this.messagesRef.on('child_added', snapshot => {
