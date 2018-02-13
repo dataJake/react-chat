@@ -40,15 +40,16 @@ class MessageList extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        updateDisplayedMessages(nextProps.ActiveRoom);
+        this.updateDisplayedMessages(nextProps.ActiveRoom);
     }
 
     componentDidMount() {
         this.messagesRef.on('child_added', snapshot => {
             const message = snapshot.val();
             message.key = snapshot.key;
-            this.setState({ messages: this.state.messages.concat( message ) });
-        })
+            this.setState({ messages: this.state.messages.concat( message ) },
+                () => this.updateDisplayedMessages(this.props.activeRoom));
+        });
     }
 
     render() {
@@ -62,7 +63,7 @@ class MessageList extends Component {
         );
 
         const messageList = (
-            this.state.messages.map((message) => {
+            this.state.displayedMessages.map((message) => {
                 return <li key={ message.key }>{ message.content }</li>
             })
         );
