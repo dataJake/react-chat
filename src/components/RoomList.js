@@ -33,7 +33,7 @@ class RoomList extends Component {
     }
 
     selectRoom(room) {
-        this.props.setActiveRoom({ room: room});
+        this.props.setActiveRoom(room);
     }
 
     render(){

@@ -23,7 +23,7 @@ class MessageList extends Component {
         username: 'Jake',
         content: this.state.messageText,
         sentAt: 'Now',
-        roomId: 1
+        roomId: "1"
       });
       this.setState({ messageText: '' });
     }
@@ -34,13 +34,14 @@ class MessageList extends Component {
     }
 
     updateDisplayedMessages(activeRoom) {
-        const displayed = this.state.messages.filter(activeRoom =>
-            this.state.messages.roomId === activeRoom.key);
+        const displayed = this.state.messages.filter(message =>
+            message.roomId === activeRoom.key);
         this.setState({ displayedMessages: displayed});
     }
 
     componentWillReceiveProps(nextProps){
-        this.updateDisplayedMessages(nextProps.ActiveRoom);
+
+        this.updateDisplayedMessages(nextProps.activeRoom);
     }
 
     componentDidMount() {
@@ -53,7 +54,6 @@ class MessageList extends Component {
     }
 
     render() {
-        const activeRoom = this.props.activeRoom;
 
         const messageForm = (
             <form onSubmit={ this.createMessage }>
