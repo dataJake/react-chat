@@ -22,7 +22,7 @@ class App extends Component {
 
         this.state = {
             activeRoom: '',
-            user: null
+            user: ''
         };
         this.setActiveRoom = this.setActiveRoom.bind(this);
         this.setUser = this.setUser.bind(this);
@@ -38,13 +38,15 @@ class App extends Component {
 
   render() {
       const displayMessages = this.state.activeRoom;
+      const currentUser = this.state.user === null ? "Guest" : this.state.user.displayName;
+
       return (
         <div>
         <h1>{this.state.activeRoom.title || "Select A Room"}</h1>
-        <User firebase={firebase} setUser={this.setUser} />
+        <User firebase={firebase} setUser={this.setUser} welcome={currentUser} />
         <RoomList firebase={firebase} activeRoom={this.activeRoom} setActiveRoom={this.setActiveRoom}/>
         { displayMessages ?
-        (<MessageList firebase={ firebase } activeRoom={this.state.activeRoom} />)
+        (<MessageList firebase={ firebase } activeRoom={this.state.activeRoom} user={this.state.user.displayName}/>)
         : (null)
         }
         </div>

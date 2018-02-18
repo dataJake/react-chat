@@ -20,7 +20,7 @@ class MessageList extends Component {
     createMessage(e) {
       e.preventDefault();
       this.messagesRef.push({
-        username: 'Jake',
+        username: this.props.user,
         content: this.state.messageText,
         sentAt: 'Now',
         roomId: "1"
@@ -64,7 +64,7 @@ class MessageList extends Component {
 
         const messageList = (
             this.state.displayedMessages.map((message) => {
-                return <li key={ message.key }>{ message.content }</li>
+                return <li key={message.key}>{message.username}: {message.content}</li>
             })
         );
 
