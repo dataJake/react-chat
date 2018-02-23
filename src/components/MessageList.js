@@ -20,10 +20,10 @@ class MessageList extends Component {
     createMessage(e) {
       e.preventDefault();
       this.messagesRef.push({
-        username: this.props.user,
+        username: this.props.user && this.props.user.displayName,
         content: this.state.messageText,
         sentAt: 'Now',
-        roomId: "1"
+        roomId: this.props.activeRoom.key
       });
       this.setState({ messageText: '' });
     }
